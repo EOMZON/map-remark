@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
@@ -17,10 +17,13 @@ const MapComponent: React.FC<MapComponentProps> = ({ onAreaMarked }) => {
       if (!mapRef.current) {
         mapRef.current = L.map('map').setView([39.9042, 116.4074], 10); // 北京市中心
 
-        L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
-          subdomains: ["1", "2", "3", "4"],
-          attribution: '© 高德地图'
-        }).addTo(mapRef.current);
+        L.tileLayer(
+          'https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
+          {
+            subdomains: ['1', '2', '3', '4'],
+            attribution: '© 高德地图',
+          }
+        ).addTo(mapRef.current);
 
         drawnItemsRef.current = new L.FeatureGroup();
         mapRef.current.addLayer(drawnItemsRef.current);
@@ -28,7 +31,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ onAreaMarked }) => {
         const drawControl = new L.Control.Draw({
           edit: {
             featureGroup: drawnItemsRef.current,
-            remove: false
+            remove: false,
           },
           draw: {
             polygon: true,
@@ -36,8 +39,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ onAreaMarked }) => {
             rectangle: true,
             circle: false,
             circlemarker: false,
-            marker: false
-          }
+            marker: false,
+          },
         });
 
         mapRef.current.addControl(drawControl);
@@ -52,7 +55,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ onAreaMarked }) => {
 
           onAreaMarked({
             area: area / 1000000, // 转换为平方公里
-            center: [center.lat, center.lng]
+            center: [center.lat, center.lng],
           });
         });
       }
